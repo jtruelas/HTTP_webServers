@@ -24,7 +24,7 @@ htmlForm = '''<!DOCTYPE html>
 <head>
 	<title>Short Uri</title>
 </head>
-<form method="POST" action="http://localhost:8000">
+<form method="POST">
 	<label>Long URI:
         <input name="long_url">
     </label>
@@ -43,7 +43,7 @@ htmlForm = '''<!DOCTYPE html>
 </html>
 '''
 
-def check_Uri(Uri, timeout=2):
+def check_Uri(Uri, timeout=5):
 	try:
 		# sets varible to status code
 		uri = requests.get(Uri, timeout=timeout)
