@@ -1,0 +1,1 @@
+This repository contains mini-projects completed upon completing a Uacity course.
