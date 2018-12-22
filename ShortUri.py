@@ -13,6 +13,7 @@
 #     that short name in its dictionary and redirects to the corresponding
 #     long URI.
 
+import os
 import requests
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs, unquote
@@ -127,6 +128,7 @@ class shortUri(BaseHTTPRequestHandler):
 			self.wfile.write(htmlForm.format(savedUri).encode())
 
 if __name__ == '__main__':
-	server_address = ('', 8000)
+	port = int(os.environ.get('PORT', 8000))
+	server_address = ('', port)
 	httpd = HTTPServer(server_address, shortUri)
 	httpd.serve_forever()
