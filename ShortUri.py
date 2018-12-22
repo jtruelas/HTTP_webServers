@@ -14,7 +14,9 @@
 #     long URI.
 
 import os
+import threading
 import requests
+from socketserver import ThreadingMixIn
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs, unquote
 
@@ -53,6 +55,8 @@ def check_Uri(Uri, timeout=5):
 		# if GET request raised an exception uri is bad
 		return False
 
+class ThreadHTTPServer(ThreadingMixIn, HTTPServer):
+	"This is an HTTPServer that supports thread-based concurrency."
 
 class shortUri(BaseHTTPRequestHandler):
 
@@ -130,5 +134,5 @@ class shortUri(BaseHTTPRequestHandler):
 if __name__ == '__main__':
 	port = int(os.environ.get('PORT', 8000))
 	server_address = ('', port)
-	httpd = HTTPServer(server_address, shortUri)
+	httpd = ThreadHTTPServer(server_address, shortUri)
 	httpd.serve_forever()
